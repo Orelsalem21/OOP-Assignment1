@@ -1,4 +1,5 @@
 public class Point {
+    // data members
     private double x;
     private double y;
 
@@ -7,14 +8,20 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-}
 
-// distance -- return the distance of this point to the other point
-  //  public double distance(Point other) { }
+    // distance -- return the distance of this point to the other point
+    public double distance(Point other) {
+        double dx = this.x - other.getX();
+        double dy = this.y - other.getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
-    // equals -- return true is the points are equal, false otherwise
-    //public boolean equals(Point other) { }
+    // equals -- return true if the points are equal, false otherwise
+    public boolean equals(Point other) {
+        return this.x == other.getX() && this.y == other.getY();
+    }
 
     // Return the x and y values of this point
-    //public double getX() { }
-    //public double getY() { }
+    public double getX() { return x; }
+    public double getY() { return y; }
+}
