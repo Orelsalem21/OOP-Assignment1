@@ -8,7 +8,11 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-
+    // Copy constructor - creates a new Point identical to 'other'
+    public Point(Point other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
     // distance -- return the distance of this point to the other point
     public double distance(Point other) {
         double dx = this.x - other.getX();

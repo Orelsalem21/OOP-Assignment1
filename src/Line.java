@@ -27,12 +27,12 @@ public class Line {
 
     // Returns the start point of the line
     public Point start() {
-        return this.start;
+        return new Point(this.start);
     }
 
     // Returns the end point of the line
     public Point end() {
-        return this.end;
+        return new Point(this.end);
     }
 
     // Returns true if the lines intersect, false otherwise
