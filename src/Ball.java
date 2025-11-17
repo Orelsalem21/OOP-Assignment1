@@ -55,12 +55,13 @@ public class Ball {
     public Velocity getVelocity() {
         return this.velocity;
     }
-
     // move the ball one step, bouncing inside a 200x200 frame
     public void moveOneStep() {
-        int width = 200;
-        int height = 200;
+        moveOneStep(200, 200);
+    }
 
+    // move the ball one step, bouncing inside a given frame
+    public void moveOneStep(int width, int height) {
         double nextX = this.center.getX() + this.velocity.getDx();
         double nextY = this.center.getY() + this.velocity.getDy();
 
