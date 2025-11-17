@@ -77,6 +77,21 @@ public class Ball {
 
         this.center = this.velocity.applyToPoint(this.center);
     }
+    // move the ball one step, bouncing inside a rectangle [left,right] x [top,bottom]
+    public void moveOneStep(int left, int top, int right, int bottom) {
+        double nextX = this.center.getX() + this.velocity.getDx();
+        double nextY = this.center.getY() + this.velocity.getDy();
+
+        if (nextX - this.r < left || nextX + this.r > right) {
+            this.velocity = new Velocity(-this.velocity.getDx(), this.velocity.getDy());
+        }
+
+        if (nextY - this.r < top || nextY + this.r > bottom) {
+            this.velocity = new Velocity(this.velocity.getDx(), -this.velocity.getDy());
+        }
+
+        this.center = this.velocity.applyToPoint(this.center);
+    }
 
     // draw the ball on the given DrawSurface
     public void drawOn(DrawSurface surface) {
