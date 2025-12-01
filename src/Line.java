@@ -40,6 +40,29 @@ public class Line {
         return this.intersectionWith(other) != null;
     }
 
+    // Returns the closest intersection point to the start of the line
+    // with the given rectangle. Returns null if no intersection exists.
+    public Point closestIntersectionToStartOfLine(Rectangle rect) {
+        java.util.List<Point> points = rect.intersectionPoints(this);
+
+        if (points.isEmpty()) {
+            return null;
+        }
+
+        Point closest = points.get(0);
+        double minDistance = this.start().distance(closest);
+
+        for (Point p : points) {
+            double d = this.start().distance(p);
+            if (d < minDistance) {
+                minDistance = d;
+                closest = p;
+            }
+        }
+
+        return closest;
+    }
+
     // Returns the intersection point if the lines intersect,
     // and null otherwise.
     public Point intersectionWith(Line other) {
