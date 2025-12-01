@@ -84,6 +84,7 @@ public class Block implements Collidable, Sprite {
      */
     @Override
     public void drawOn(DrawSurface d) {
+        // Fill the block with its color
         d.setColor(this.color);
         Point upperLeft = this.rectangle.getUpperLeft();
         int x = (int) upperLeft.getX();
@@ -91,6 +92,10 @@ public class Block implements Collidable, Sprite {
         int width = (int) this.rectangle.getWidth();
         int height = (int) this.rectangle.getHeight();
         d.fillRectangle(x, y, width, height);
+
+        // Draw a black frame (stroke) around the block
+        d.setColor(Color.BLACK);
+        d.drawRectangle(x, y, width, height);
     }
 
     /**

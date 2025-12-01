@@ -4,7 +4,8 @@ import biuoop.Sleeper;
 import biuoop.KeyboardSensor;
 
 import java.awt.Color;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main game class: holds sprites and collidables and runs the animation.
@@ -46,56 +47,78 @@ public class Game {
      * and add them to the game.
      */
     public void initialize() {
-        // create GUI 800x600
-        this.gui = new GUI("Test Game", 800, 600);
+        // Create GUI 800x600
+        this.gui = new GUI("Arkanoid Game", 800, 600);
         KeyboardSensor keyboard = this.gui.getKeyboardSensor();
 
-        // create borders as blocks
+        // --- Create Borders ---
         int width = 800;
         int height = 600;
         int borderSize = 20;
 
-        // top
+        // Top border
         Block top = new Block(
                 new Rectangle(new Point(0, 0), width, borderSize),
                 Color.GRAY);
-        // bottom
+        // Bottom border (in future assignments this might be the "death region")
         Block bottom = new Block(
                 new Rectangle(new Point(0, height - borderSize), width, borderSize),
                 Color.GRAY);
-        // left
+        // Left border
         Block left = new Block(
                 new Rectangle(new Point(0, 0), borderSize, height),
                 Color.GRAY);
-        // right
+        // Right border
         Block right = new Block(
                 new Rectangle(new Point(width - borderSize, 0), borderSize, height),
                 Color.GRAY);
 
+        // Add all borders to the game
         addBlock(top);
         addBlock(bottom);
         addBlock(left);
         addBlock(right);
 
-        // a block in the middle
-        Block middle = new Block(
-                new Rectangle(new Point(300, 250), 200, 20),
-                Color.DARK_GRAY);
-        addBlock(middle);
+        // --- Create Game Blocks (The Pattern) ---
+        // Colors for each row according to the assignment image
+        Color[] colors = {Color.GRAY, Color.RED, Color.YELLOW, Color.BLUE, Color.PINK, Color.GREEN};
 
-        // create a ball
-        Ball ball = new Ball(new Point(400, 300), 7, Color.RED);
-        ball.setVelocity(3, 3);
+        int blockWidth = 50;
+        int blockHeight = 25;
+
+        // Create 6 rows of blocks
+        for (int i = 0; i < 6; i++) {
+            Color rowColor = colors[i];
+
+            // Create a "staircase" effect: row 0 has 12 blocks, row 1 has 11, etc.
+            for (int j = 0; j < 12 - i; j++) {
+                // Position calculation:
+                // Start from the right edge (width - borderSize) and go left
+                double x = (width - borderSize) - (j + 1) * blockWidth;
+                // Start from Y=100 and go down
+                double y = 100 + i * blockHeight;
+
+                Rectangle rect = new Rectangle(new Point(x, y), blockWidth, blockHeight);
+                Block block = new Block(rect, rowColor);
+                addBlock(block);
+            }
+        }
+
+        // --- Create Balls ---
+        // Ball 1
+        Ball ball = new Ball(new Point(400, 300), 5, Color.WHITE);
+        ball.setVelocity(4, 4);
         ball.setGameEnvironment(this.environment);
         this.addSprite(ball);
 
-        // create a second ball
-        Ball ball2 = new Ball(new Point(200, 200), 7, Color.BLUE);
-        ball2.setVelocity(-3, 3);
+        // Ball 2
+        Ball ball2 = new Ball(new Point(300, 300), 5, Color.WHITE);
+        ball2.setVelocity(-4, 4);
         ball2.setGameEnvironment(this.environment);
         this.addSprite(ball2);
 
-        // create a paddle near the bottom
+        // --- Create Paddle ---
+        // Paddle position: centered horizontally, near the bottom
         Rectangle paddleRect = new Rectangle(new Point(350, 560), 100, 20);
         Paddle paddle = new Paddle(paddleRect, Color.ORANGE, keyboard, 8);
         paddle.addToGame(this);
@@ -123,6 +146,11 @@ public class Game {
             long startTime = System.currentTimeMillis(); // timing
 
             DrawSurface d = this.gui.getDrawSurface();
+
+            // Draw background (optional, makes it look nicer)
+            d.setColor(new Color(0, 0, 100)); // Dark Blue background
+            d.fillRectangle(0, 0, 800, 600);
+
             this.sprites.drawAllOn(d);
             this.gui.show(d);
             this.sprites.notifyAllTimePassed();
