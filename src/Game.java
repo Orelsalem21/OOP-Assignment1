@@ -89,6 +89,12 @@ public class Game {
         ball.setGameEnvironment(this.environment);
         this.addSprite(ball);
 
+        // create a second ball
+        Ball ball2 = new Ball(new Point(200, 200), 7, Color.BLUE);
+        ball2.setVelocity(-3, 3);
+        ball2.setGameEnvironment(this.environment);
+        this.addSprite(ball2);
+
         // create a paddle near the bottom
         Rectangle paddleRect = new Rectangle(new Point(350, 560), 100, 20);
         Paddle paddle = new Paddle(paddleRect, Color.ORANGE, keyboard, 8);
