@@ -1,7 +1,7 @@
 import biuoop.DrawSurface;
 import java.awt.Color;
 
-public class Ball {
+public class Ball implements Sprite {
     // data members
     private Point center;
     private int r;
@@ -64,6 +64,14 @@ public class Ball {
     // get current velocity
     public Velocity getVelocity() {
         return this.velocity;
+    }
+
+    /**
+     * Notify the ball that time has passed.
+     */
+    @Override
+    public void timePassed() {
+        this.moveOneStep();
     }
 
     /**
@@ -145,6 +153,7 @@ public class Ball {
     }
 
     // draw the ball on the given DrawSurface
+    @Override
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
         surface.fillCircle(this.getX(), this.getY(), this.r);

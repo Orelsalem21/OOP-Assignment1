@@ -1,0 +1,48 @@
+import biuoop.DrawSurface;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A collection of sprites that can be drawn and updated.
+ */
+public class SpriteCollection {
+
+    private List<Sprite> sprites;
+
+    /**
+     * Create an empty sprite collection.
+     */
+    public SpriteCollection() {
+        this.sprites = new ArrayList<Sprite>();
+    }
+
+    /**
+     * Add a sprite to the collection.
+     *
+     * @param s the sprite to add
+     */
+    public void addSprite(Sprite s) {
+        this.sprites.add(s);
+    }
+
+    /**
+     * Call timePassed() on all sprites.
+     */
+    public void notifyAllTimePassed() {
+        for (Sprite s : this.sprites) {
+            s.timePassed();
+        }
+    }
+
+    /**
+     * Call drawOn(d) on all sprites.
+     *
+     * @param d the DrawSurface to draw on
+     */
+    public void drawAllOn(DrawSurface d) {
+        for (Sprite s : this.sprites) {
+            s.drawOn(d);
+        }
+    }
+}

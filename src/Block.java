@@ -1,14 +1,30 @@
-public class Block implements Collidable {
+import biuoop.DrawSurface;
+import java.awt.Color;
+
+public class Block implements Collidable, Sprite {
 
     private Rectangle rectangle;
+    private Color color;
 
     /**
      * Create a new block using the given rectangle.
+     * The block will use a default color.
      *
      * @param rectangle the rectangle that defines the block shape
      */
     public Block(Rectangle rectangle) {
+        this(rectangle, Color.GRAY);
+    }
+
+    /**
+     * Create a new block using the given rectangle and color.
+     *
+     * @param rectangle the rectangle that defines the block shape
+     * @param color     the color of the block
+     */
+    public Block(Rectangle rectangle, Color color) {
         this.rectangle = rectangle;
+        this.color = color;
     }
 
     /**
@@ -59,5 +75,30 @@ public class Block implements Collidable {
         }
 
         return new Velocity(newDx, newDy);
+    }
+
+    /**
+     * Draw the block on the given DrawSurface.
+     *
+     * @param d the surface to draw on
+     */
+    @Override
+    public void drawOn(DrawSurface d) {
+        d.setColor(this.color);
+        Point upperLeft = this.rectangle.getUpperLeft();
+        int x = (int) upperLeft.getX();
+        int y = (int) upperLeft.getY();
+        int width = (int) this.rectangle.getWidth();
+        int height = (int) this.rectangle.getHeight();
+        d.fillRectangle(x, y, width, height);
+    }
+
+    /**
+     * Notify the block that time has passed.
+     * Currently, blocks do not change over time.
+     */
+    @Override
+    public void timePassed() {
+        // no behavior for now
     }
 }
