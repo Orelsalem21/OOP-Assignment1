@@ -22,6 +22,15 @@ public class GameEnvironment {
     }
 
     /**
+     * Remove a collidable from the environment.
+     *
+     * @param c the collidable to remove
+     */
+    public void removeCollidable(Collidable c) {
+        this.collidables.remove(c);
+    }
+
+    /**
      * Assume an object moving from line.start() to line.end().
      * If this object will not collide with any of the collidables
      * in this collection, return null.

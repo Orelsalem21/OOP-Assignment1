@@ -42,6 +42,14 @@ public class Game {
         this.sprites.addSprite(s);
     }
 
+    public void removeCollidable(Collidable c) {
+        this.environment.removeCollidable(c);
+    }
+
+    public void removeSprite(Sprite s) {
+        this.sprites.removeSprite(s);
+    }
+
     /**
      * Initialize a new game: create the GUI, blocks, ball and paddle,
      * and add them to the game.

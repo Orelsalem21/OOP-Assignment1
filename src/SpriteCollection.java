@@ -25,7 +25,14 @@ public class SpriteCollection {
     public void addSprite(Sprite s) {
         this.sprites.add(s);
     }
-
+    /**
+     * Remove a sprite from the collection.
+     *
+     * @param s the sprite to remove
+     */
+    public void removeSprite(Sprite s) {
+        this.sprites.remove(s);
+    }
     /**
      * Call timePassed() on all sprites.
      */
