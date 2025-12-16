@@ -115,7 +115,7 @@ public class Ball implements Sprite {
         this.center = new Point(newX, newY);
 
         // update velocity according to the hit object
-        this.velocity = collisionObject.hit(collisionPoint, this.velocity);
+        this.velocity = collisionObject.hit(this, collisionPoint, this.velocity);
     }
 
     // move the ball one step, bouncing inside a 200x200 frame

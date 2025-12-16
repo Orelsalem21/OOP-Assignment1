@@ -16,6 +16,7 @@ public class Game {
     private GameEnvironment environment;
     private GUI gui;
 
+
     /**
      * Create a new empty game.
      */
@@ -59,6 +60,9 @@ public class Game {
         this.gui = new GUI("Arkanoid Game", 800, 600);
         KeyboardSensor keyboard = this.gui.getKeyboardSensor();
 
+        // [ASS3 - Step 11] Create a listener instance (one for all blocks)
+        PrintingHitListener printListener = new PrintingHitListener();
+
         // --- Create Borders ---
         int width = 800;
         int height = 600;
@@ -68,18 +72,25 @@ public class Game {
         Block top = new Block(
                 new Rectangle(new Point(0, 0), width, borderSize),
                 Color.GRAY);
+        top.addHitListener(printListener);
+
         // Bottom border (in future assignments this might be the "death region")
         Block bottom = new Block(
                 new Rectangle(new Point(0, height - borderSize), width, borderSize),
                 Color.GRAY);
+        bottom.addHitListener(printListener);
+
         // Left border
         Block left = new Block(
                 new Rectangle(new Point(0, 0), borderSize, height),
                 Color.GRAY);
+        left.addHitListener(printListener);
+
         // Right border
         Block right = new Block(
                 new Rectangle(new Point(width - borderSize, 0), borderSize, height),
                 Color.GRAY);
+        right.addHitListener(printListener);
 
         // Add all borders to the game
         addBlock(top);
@@ -108,6 +119,10 @@ public class Game {
 
                 Rectangle rect = new Rectangle(new Point(x, y), blockWidth, blockHeight);
                 Block block = new Block(rect, rowColor);
+
+                // [ASS3 - Step 11] Register listener on every game block
+                block.addHitListener(printListener);
+
                 addBlock(block);
             }
         }
@@ -131,6 +146,7 @@ public class Game {
         Paddle paddle = new Paddle(paddleRect, Color.ORANGE, keyboard, 8);
         paddle.addToGame(this);
     }
+
 
     /**
      * Helper: add a block as both sprite and collidable.
